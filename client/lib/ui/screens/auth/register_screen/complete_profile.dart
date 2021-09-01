@@ -17,6 +17,7 @@ class CompleteProfile extends StatelessWidget {
             Image.asset(
               'assets/images/complete_profile.png',
               width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.425,
               fit: BoxFit.fill,
             ),
             Container(
@@ -123,8 +124,7 @@ class CompleteProfile extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => GoalsPage()),
+                        MaterialPageRoute(builder: (context) => GoalsPage()),
                       );
                     },
                     child: Container(

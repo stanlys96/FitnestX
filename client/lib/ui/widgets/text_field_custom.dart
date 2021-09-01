@@ -14,7 +14,6 @@ class TextFieldCustom extends StatelessWidget {
       height: MediaQuery.of(context).size.height / 16,
       padding: const EdgeInsets.symmetric(
         horizontal: 12.5,
-        vertical: 2.5,
       ),
       decoration: BoxDecoration(
         color: const Color(0xFFDDDADA),
@@ -27,28 +26,30 @@ class TextFieldCustom extends StatelessWidget {
             width: 12,
           ),
           Expanded(
-            child: TextFormField(
-              decoration: InputDecoration(
-                prefixIconConstraints: BoxConstraints(
-                  minWidth: 10,
-                  minHeight: 2,
+            child: Center(
+              child: TextFormField(
+                decoration: InputDecoration(
+                  prefixIconConstraints: const BoxConstraints(
+                    minWidth: 10,
+                    minHeight: 2,
+                  ),
+                  border: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  errorBorder: InputBorder.none,
+                  disabledBorder: InputBorder.none,
+                  hintText: hintText ?? "",
+                  hintStyle: GoogleFonts.poppins(fontSize: 14),
                 ),
-                border: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                errorBorder: InputBorder.none,
-                disabledBorder: InputBorder.none,
-                hintText: hintText ?? "",
-                hintStyle: GoogleFonts.poppins(fontSize: 14),
+                keyboardType: TextInputType.text,
               ),
-              keyboardType: TextInputType.text,
             ),
           ),
           suffixIcon != null
               ? GestureDetector(
-            onTap: () {},
-            child: suffixIcon,
-          )
+                  onTap: () {},
+                  child: suffixIcon,
+                )
               : SizedBox(),
         ],
       ),

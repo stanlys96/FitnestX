@@ -199,7 +199,10 @@ class GoalCard extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(height: 25),
-          Image.asset(imageUrl!),
+          Image.asset(
+            imageUrl!,
+            height: MediaQuery.of(context).size.height * 0.35,
+          ),
           SizedBox(height: 20),
           Text(
             title!,

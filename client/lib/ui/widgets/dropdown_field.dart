@@ -13,8 +13,6 @@ class DropdownField extends StatelessWidget {
     return Container(
       height: MediaQuery.of(context).size.height / 16,
       padding: const EdgeInsets.only(
-        top: 1,
-        bottom: 2.5,
         left: 12.5,
       ),
       decoration: BoxDecoration(
@@ -27,7 +25,9 @@ class DropdownField extends StatelessWidget {
           Expanded(
             child: DropdownButtonFormField(
               isExpanded: true,
-              hint: Text('Choose Gender'),
+              hint: Text(
+                'Choose Gender',
+              ),
               icon: const Icon(Icons.keyboard_arrow_down_sharp),
               iconSize: 24,
               elevation: 16,
