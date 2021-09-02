@@ -11,7 +11,7 @@ class RegisterPage extends StatelessWidget {
         child: SingleChildScrollView(
           child: Container(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height - 40,
+            height: MediaQuery.of(context).size.height - 80,
             padding: const EdgeInsets.only(
               top: 20,
               left: 20,

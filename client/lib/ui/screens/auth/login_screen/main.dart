@@ -65,8 +65,7 @@ class LoginPage extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => WelcomePage()),
+                        MaterialPageRoute(builder: (context) => WelcomePage()),
                       );
                     },
                     child: Container(
@@ -88,7 +87,10 @@ class LoginPage extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.home, color: Colors.white,),
+                            Icon(
+                              Icons.home,
+                              color: Colors.white,
+                            ),
                             SizedBox(width: 6),
                             Text(
                               'Login',
