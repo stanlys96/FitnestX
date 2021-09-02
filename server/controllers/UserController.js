@@ -11,6 +11,15 @@ class UserController {
       console.log(err);
     }
   }
+
+  static async getAllUsers(req, res) {
+    try {
+      const users = await User.getAllUsers();
+      res.json(users);
+    } catch(err) {
+      console.log(err);
+    }
+  }
 }
 
 module.exports = UserController;
