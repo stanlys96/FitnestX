@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 if (process.env.NODE_ENV != 'production') {
-  // require('dotenv').config();
+  require('dotenv').config();
 }
 
 function generateToken(payload) {

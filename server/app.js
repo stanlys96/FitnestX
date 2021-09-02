@@ -1,6 +1,10 @@
 const env = process.env.NODE_ENV;
 const router = require('./routes/index');
 
+if (env != 'production') {
+  require('dotenv').config();
+}
+
 const express = require('express');
 const app = express();
 const cors = require('cors');
