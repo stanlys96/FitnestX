@@ -10,6 +10,11 @@ class User {
   } catch(err) {
     console.log(err.message);
   }
+
+  static async getAllUsers() {
+    const users = await pool.query("SELECT * FROM users");
+    return users;
+  }
 }
 
 module.exports = User;
