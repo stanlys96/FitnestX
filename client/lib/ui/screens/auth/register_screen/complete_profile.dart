@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:fitness_app/ui/widgets/text_field_custom.dart';
-import 'package:fitness_app/ui/widgets/dropdown_field.dart';
-import 'package:fitness_app/ui/screens/auth/register_screen/goal_page.dart';
+part of 'main.dart';
 
 class CompleteProfile extends StatelessWidget {
   List<String> data = ["Male", "Female"];

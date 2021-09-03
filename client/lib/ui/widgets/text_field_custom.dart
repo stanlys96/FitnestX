@@ -1,12 +1,17 @@
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+part of 'widgets.dart';
 
 class TextFieldCustom extends StatelessWidget {
   Icon? icon;
   String? hintText;
   Icon? suffixIcon;
+  TextEditingController? controller;
 
-  TextFieldCustom({@required this.icon, this.hintText, this.suffixIcon});
+  TextFieldCustom({
+    @required this.icon,
+    this.hintText,
+    this.suffixIcon,
+    this.controller = null,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +33,8 @@ class TextFieldCustom extends StatelessWidget {
           Expanded(
             child: Center(
               child: TextFormField(
+                controller: controller,
+                onChanged: (val) {},
                 decoration: InputDecoration(
                   prefixIconConstraints: const BoxConstraints(
                     minWidth: 10,

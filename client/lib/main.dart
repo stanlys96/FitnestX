@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import './ui/screens/auth/onboarding_screen/main.dart';
+import 'package:fitness_app/ui/screens/auth/onboarding_screen/main.dart';
 import 'package:provider/provider.dart';
-import './provider/getting_started/getting_started_change_notifier.dart';
+import 'provider/providers.dart';
 
 void main() {
   runApp(
@@ -9,6 +9,9 @@ void main() {
       providers: [
         ChangeNotifierProvider(
           create: (context) => GettingStartedChangeNotifier(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => RegisterChangeNotifier(),
         ),
       ],
       child: MyApp(),

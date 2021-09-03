@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:fitness_app/ui/screens/auth/login_screen/main.dart';
+part of 'main.dart';
 
 class GoalsPage extends StatelessWidget {
   CarouselController buttonCarouselController = CarouselController();

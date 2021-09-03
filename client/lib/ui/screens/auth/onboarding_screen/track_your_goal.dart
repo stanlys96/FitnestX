@@ -1,9 +1,4 @@
-import 'package:fitness_app/provider/getting_started/getting_started_change_notifier.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:percent_indicator/percent_indicator.dart';
-import '../register_screen/main.dart';
-import 'package:provider/provider.dart';
+part of 'main.dart';
 
 class TrackYourGoal extends StatelessWidget {
   @override
