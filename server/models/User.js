@@ -11,6 +11,16 @@ class User {
     console.log(err.message);
   }
 
+  static async completeProfile(email, user) {
+    try {
+      let { gender, date_of_birth, weight, height } = user;
+      const updateUser = await pool.query("UPDATE users SET gender = $1, date_of_birth = $2, weight = $3, height = $4 WHERE email = $5 RETURNING *;", [gender, date_of_birth, weight, height, email]);
+      return updateUser;
+    } catch(err) {
+      console.log(err.message);
+    }
+  }
+
   static async getAllUsers() {
     const users = await pool.query("SELECT * FROM users");
     return users;

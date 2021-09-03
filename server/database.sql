@@ -9,3 +9,9 @@ CREATE TABLE users(
   email VARCHAR(255),
   password VARCHAR(255)
 );
+
+ALTER TABLE users
+ADD COLUMN gender VARCHAR(10),
+ADD COLUMN date_of_birth DATE,
+ADD COLUMN weight REAL,
+ADD COLUMN height REAL;

@@ -12,6 +12,15 @@ class UserController {
     }
   }
 
+  static async completeProfile(req, res) {
+    try {
+      const updatedUser = await User.completeProfile(req.params.email, req.body);
+      res.json(updatedUser);
+    } catch(err) {
+      console.log(err);
+    }
+  }
+
   static async getAllUsers(req, res) {
     try {
       const users = await User.getAllUsers();
