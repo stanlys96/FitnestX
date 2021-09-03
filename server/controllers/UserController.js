@@ -16,7 +16,16 @@ class UserController {
     try {
       const updatedUser = await User.completeProfile(req.params.email, req.body);
       res.json(updatedUser);
-    } catch(err) {
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  static async addGoals(req, res) {
+    try {
+      const updatedUser = await User.addGoals(req.params.email, req.body.goals);
+      res.json(updatedUser);
+    } catch (err) {
       console.log(err);
     }
   }
@@ -25,7 +34,7 @@ class UserController {
     try {
       const users = await User.getAllUsers();
       res.json(users);
-    } catch(err) {
+    } catch (err) {
       console.log(err);
     }
   }

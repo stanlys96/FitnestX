@@ -16,7 +16,16 @@ class User {
       let { gender, date_of_birth, weight, height } = user;
       const updateUser = await pool.query("UPDATE users SET gender = $1, date_of_birth = $2, weight = $3, height = $4 WHERE email = $5 RETURNING *;", [gender, date_of_birth, weight, height, email]);
       return updateUser;
-    } catch(err) {
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
+
+  static async addGoals(email, goals) {
+    try {
+      const updateUser = await pool.query("UPDATE users SET goals = $1 WHERE email = $2 RETURNING *;", [goals, email]);
+      return updateUser;
+    } catch (err) {
       console.log(err.message);
     }
   }
