@@ -3,8 +3,10 @@ part of 'widgets.dart';
 class DropdownField extends StatelessWidget {
   const DropdownField({
     required this.data,
+    required this.provider,
   });
 
+  final RegisterChangeNotifier provider;
   final List<String> data;
 
   @override
@@ -22,12 +24,16 @@ class DropdownField extends StatelessWidget {
         children: [
           Icon(Icons.person_outline),
           Expanded(
-            child: DropdownButtonFormField(
+            child: DropdownButtonFormField<String>(
+              value: provider.selectedGender,
               isExpanded: true,
               hint: Text(
                 'Choose Gender',
               ),
-              icon: const Icon(Icons.keyboard_arrow_down_sharp),
+              icon: const Icon(
+                Icons.keyboard_arrow_down_sharp,
+                color: Colors.blue,
+              ),
               iconSize: 24,
               elevation: 16,
               style: const TextStyle(color: Colors.black),
@@ -41,6 +47,9 @@ class DropdownField extends StatelessWidget {
                 disabledBorder: InputBorder.none,
                 hintStyle: GoogleFonts.poppins(fontSize: 14),
               ),
+              onChanged: (String? value) {
+                provider.setSelectedGender(value!);
+              },
               items: data.map<DropdownMenuItem<String>>(
                 (String value) {
                   return DropdownMenuItem<String>(

@@ -19,4 +19,19 @@ class AuthServices {
 
     return response;
   }
+
+  Future completeProfile(String gender, String dateOfBirth, double weight,
+      double height, String email) async {
+    String url = baseUrl + '/completeProfile/$email';
+    Map<String, String> headers = {"Content-type": "application/json"};
+    var body = jsonEncode({
+      "gender": "$gender",
+      "date_of_birth": "$dateOfBirth",
+      "weight": "$weight",
+      "height": "$height"
+    });
+    var response =
+        await http.post(Uri.parse(url), headers: headers, body: body);
+    return response;
+  }
 }

@@ -7,8 +7,15 @@ class RegisterChangeNotifier with ChangeNotifier {
   final _lastNameController = new TextEditingController();
   final _emailController = new TextEditingController();
   final _passwordController = new TextEditingController();
+  final _dateOfBirthController = new TextEditingController();
+  final _weightController = new TextEditingController();
+  final _heightController = new TextEditingController();
+
+  List<String> listGender = ["Male", "Female"];
 
   final authServices = AuthServices();
+
+  String _selectedGender = "Male";
 
   get scaffoldKey => _scaffoldKey;
   get formKey => _formKey;
@@ -16,6 +23,15 @@ class RegisterChangeNotifier with ChangeNotifier {
   TextEditingController get lastNameController => _lastNameController;
   TextEditingController get emailController => _emailController;
   TextEditingController get passwordController => _passwordController;
+  String get selectedGender => _selectedGender;
+  TextEditingController get dateOfBirthController => _dateOfBirthController;
+  TextEditingController get weightController => _weightController;
+  TextEditingController get heightController => _heightController;
+
+  void setSelectedGender(String value) {
+    _selectedGender = value;
+    notifyListeners();
+  }
 
   void handleRegister(BuildContext context) async {
     try {
@@ -31,6 +47,28 @@ class RegisterChangeNotifier with ChangeNotifier {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => CompleteProfile()),
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void completeProfile(BuildContext context) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var email = prefs.getString("email");
+      http.Response jsonResponse = await authServices.completeProfile(
+        _selectedGender,
+        _dateOfBirthController.text,
+        double.parse(_weightController.text),
+        double.parse(_heightController.text),
+        email!,
+      );
+      CompleteProfileData result =
+          new CompleteProfileData.fromJson(jsonDecode(jsonResponse.body));
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => GoalsPage()),
       );
     } catch (e) {
       print(e);
