@@ -14,6 +14,14 @@ class _RegisterPageState extends State<RegisterPage> {
 
   String password = '';
 
+  bool isObscure = true;
+
+  void changeObscure() {
+    setState(() {
+      isObscure = !isObscure;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,10 +78,14 @@ class _RegisterPageState extends State<RegisterPage> {
                                 controller: provider.emailController),
                             SizedBox(height: 15),
                             TextFieldCustom(
-                              icon: Icon(Icons.person_outline),
+                              icon: Icon(Icons.lock_outline),
                               hintText: "Password",
                               controller: provider.passwordController,
-                              suffixIcon: Icon(Icons.remove_red_eye_outlined),
+                              suffixIcon: isObscure
+                                  ? FaIcon(FontAwesomeIcons.eyeSlash)
+                                  : FaIcon(FontAwesomeIcons.eye),
+                              obscure: isObscure,
+                              changeIsObscure: changeObscure,
                             ),
                             SizedBox(height: 10),
                             Row(
@@ -98,6 +110,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         children: [
                           GestureDetector(
                             onTap: () {
+                              print('register');
                               provider.handleRegister(context);
                             },
                             child: Container(

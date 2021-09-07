@@ -1,6 +1,65 @@
 part of 'main.dart';
 
-class CompleteProfile extends StatelessWidget {
+class CompleteProfile extends StatefulWidget {
+  @override
+  _CompleteProfileState createState() => _CompleteProfileState();
+}
+
+class _CompleteProfileState extends State<CompleteProfile>
+    with RestorationMixin {
+  String restorationId = 'main';
+  final RestorableDateTime _selectedDate = RestorableDateTime(DateTime.now());
+  late final RestorableRouteFuture<DateTime?> _restorableDatePickerRouteFuture =
+      RestorableRouteFuture<DateTime?>(
+    onComplete: _selectDate,
+    onPresent: (NavigatorState navigator, Object? arguments) {
+      return navigator.restorablePush(
+        _datePickerRoute,
+        arguments: _selectedDate.value.millisecondsSinceEpoch,
+      );
+    },
+  );
+
+  static Route<DateTime> _datePickerRoute(
+    BuildContext context,
+    Object? arguments,
+  ) {
+    return DialogRoute<DateTime>(
+      context: context,
+      builder: (BuildContext context) {
+        return DatePickerDialog(
+          restorationId: 'date_picker_dialog',
+          initialEntryMode: DatePickerEntryMode.calendarOnly,
+          initialDate: DateTime.fromMillisecondsSinceEpoch(arguments! as int),
+          firstDate: DateTime(1944, 1, 1),
+          lastDate: DateTime.now(),
+        );
+      },
+    );
+  }
+
+  @override
+  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
+    registerForRestoration(_selectedDate, 'selected_date');
+    registerForRestoration(
+        _restorableDatePickerRouteFuture, 'date_picker_route_future');
+  }
+
+  void _selectDate(DateTime? newSelectedDate) {
+    if (newSelectedDate != null) {
+      setState(() {
+        _selectedDate.value = newSelectedDate;
+        Provider.of<RegisterChangeNotifier>(context, listen: false)
+                .dateOfBirth =
+            "${_selectedDate.value.day}/${_selectedDate.value.month}/${_selectedDate.value.year}";
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+              'Selected: ${_selectedDate.value.day}/${_selectedDate.value.month}/${_selectedDate.value.year}'),
+        ));
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,17 +99,25 @@ class CompleteProfile extends StatelessWidget {
                         provider: provider,
                       ),
                       SizedBox(height: 15),
-                      TextFieldCustom(
-                        icon: Icon(Icons.calendar_today),
-                        hintText: "Date of Birth",
-                        controller: provider.dateOfBirthController,
+                      DateTimeField(
+                        icon: Icon(Icons.calendar_today, size: 20),
+                        title:
+                            "${_selectedDate.value.day}/${_selectedDate.value.month}/${_selectedDate.value.year}",
+                        suffixIcon:
+                            Icon(Icons.calendar_today_outlined, size: 20),
+                        suffixOnPressed:
+                            _restorableDatePickerRouteFuture.present,
                       ),
                       SizedBox(height: 15),
                       Row(
                         children: [
                           Expanded(
                             child: TextFieldCustom(
-                              icon: Icon(Icons.perm_camera_mic),
+                              icon: Image.asset(
+                                'assets/icons/weight-scale.png',
+                                height: 20,
+                                width: 20,
+                              ),
                               hintText: "Your Weight",
                               controller: provider.weightController,
                             ),
@@ -88,7 +155,11 @@ class CompleteProfile extends StatelessWidget {
                         children: [
                           Expanded(
                             child: TextFieldCustom(
-                              icon: Icon(Icons.perm_camera_mic),
+                              icon: Image.asset(
+                                'assets/icons/height.png',
+                                height: 20,
+                                width: 20,
+                              ),
                               hintText: "Your Height",
                               controller: provider.heightController,
                             ),

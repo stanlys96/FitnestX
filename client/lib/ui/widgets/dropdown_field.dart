@@ -22,7 +22,10 @@ class DropdownField extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(Icons.person_outline),
+          Icon(
+            Icons.person_outline,
+            size: 20,
+          ),
           Expanded(
             child: DropdownButtonFormField<String>(
               value: provider.selectedGender,
