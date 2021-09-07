@@ -1,6 +1,8 @@
 part of 'providers.dart';
 
 class RegisterChangeNotifier with ChangeNotifier {
+  int _listTitleIndex = 0;
+
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _firstNameController = new TextEditingController();
@@ -10,12 +12,27 @@ class RegisterChangeNotifier with ChangeNotifier {
   final _dateOfBirthController = new TextEditingController();
   final _weightController = new TextEditingController();
   final _heightController = new TextEditingController();
+  CarouselController _buttonCarouselController = CarouselController();
+  List<String> listImageUrl = [
+    "assets/images/improve_shape.png",
+    "assets/images/lean_and_tone.png",
+    "assets/images/lose_fat.png"
+  ];
+  List<String> listDescription = [
+    "I have a low amount of body fat and need/want to build more muscle",
+    "I'm \"skinny fat\". Looks thin but have no shape. I want to learn adding muscle the right way",
+    "I have over 20 lbs to lose. I want to drop all these fat and gain muscle mass",
+  ];
+  List<String> listTitles = [
+    "Improve Shape",
+    "Lean & Tone",
+    "Lose Fat",
+  ];
 
   List<String> listGender = ["Male", "Female"];
-
   final authServices = AuthServices();
-
   String _selectedGender = "Male";
+  String _selectedTitle = "Improve Shape";
 
   get scaffoldKey => _scaffoldKey;
   get formKey => _formKey;
@@ -27,6 +44,8 @@ class RegisterChangeNotifier with ChangeNotifier {
   TextEditingController get dateOfBirthController => _dateOfBirthController;
   TextEditingController get weightController => _weightController;
   TextEditingController get heightController => _heightController;
+  CarouselController get buttonCarouselController => _buttonCarouselController;
+  String get selectedTitle => _selectedTitle;
 
   void setSelectedGender(String value) {
     _selectedGender = value;
@@ -73,6 +92,38 @@ class RegisterChangeNotifier with ChangeNotifier {
     } catch (e) {
       print(e);
     }
+  }
+
+  void changeSelectedTitle(String method) {
+    if (method == "prev") {
+      if (_listTitleIndex == 0) {
+        _listTitleIndex = listTitles.length - 1;
+      } else {
+        _listTitleIndex--;
+      }
+    } else if (method == "next") {
+      if (_listTitleIndex == listTitles.length - 1) {
+        _listTitleIndex = 0;
+      } else {
+        _listTitleIndex++;
+      }
+    }
+    _selectedTitle = listTitles[_listTitleIndex];
+    print(_selectedTitle);
+  }
+
+  void addGoals(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var email = prefs.getString('email');
+    http.Response jsonResponse = await authServices.addGoals(
+      email!,
+      _selectedTitle,
+    );
+    GoalsData result = new GoalsData.fromJson(jsonDecode(jsonResponse.body));
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => LoginPage()),
+    );
   }
 
   void handleCompleteProfile(BuildContext context) async {}

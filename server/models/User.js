@@ -1,5 +1,5 @@
 const pool = require('../database/db');
-const { hashPassword } = require('../helpers/bcrypt');
+const { hashPassword, comparePassword } = require('../helpers/bcrypt');
 
 class User {
   static async register(user) {

@@ -34,4 +34,15 @@ class AuthServices {
         await http.post(Uri.parse(url), headers: headers, body: body);
     return response;
   }
+
+  Future addGoals(String email, String goals) async {
+    String url = baseUrl + '/addGoals/$email';
+    Map<String, String> headers = {"Content-type": "application/json"};
+    var body = jsonEncode({
+      "goals": "$goals",
+    });
+    var response =
+        await http.post(Uri.parse(url), headers: headers, body: body);
+    return response;
+  }
 }
