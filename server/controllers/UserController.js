@@ -12,6 +12,15 @@ class UserController {
     }
   }
 
+  static async login(req, res) {
+    try {
+      const loginUser = await User.login(req.body);
+      res.json(loginUser);
+    } catch(err) {
+      console.log(err);
+    }
+  }
+
   static async completeProfile(req, res) {
     try {
       const updatedUser = await User.completeProfile(req.params.email, req.body);

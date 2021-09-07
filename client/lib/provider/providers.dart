@@ -8,3 +8,4 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 part 'getting_started_change_notifier.dart';
 part 'register_change_notifier.dart';
+part 'login_change_notifier.dart';

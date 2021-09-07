@@ -1,5 +1,6 @@
 const pool = require('../database/db');
-const { hashPassword } = require('../helpers/bcrypt');
+const { hashPassword, comparePassword } = require('../helpers/bcrypt');
+const { generateToken } = require('../helpers/jwt');
 
 class User {
   static async register(user) {
@@ -9,6 +10,12 @@ class User {
     return newUser;
   } catch(err) {
     console.log(err.message);
+  }
+
+  static async login(user) {
+    let { email, password } = user;
+    const findUser = await pool.query("SELECT * FROM users WHERE email = $1 RETURNING*;", [email]);
+    return findUser;
   }
 
   static async completeProfile(email, user) {
