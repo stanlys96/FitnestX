@@ -12,9 +12,8 @@ class User {
     console.log(err.message);
   }
 
-  static async login(user) {
-    let { email, password } = user;
-    const findUser = await pool.query("SELECT * FROM users WHERE email = $1 RETURNING*;", [email]);
+  static async login(email) {
+    const findUser = await pool.query("SELECT * FROM users WHERE email = $1;", [email]);
     return findUser;
   }
 
