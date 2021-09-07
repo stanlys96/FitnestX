@@ -98,6 +98,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         children: [
                           GestureDetector(
                             onTap: () {
+                              print('register');
                               provider.handleRegister(context);
                             },
                             child: Container(

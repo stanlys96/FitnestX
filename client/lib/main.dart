@@ -13,6 +13,9 @@ void main() {
         ChangeNotifierProvider(
           create: (context) => RegisterChangeNotifier(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => LoginChangeNotifier(),
+        ),
       ],
       child: MyApp(),
     ),
