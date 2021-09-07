@@ -1,18 +1,27 @@
 part of 'widgets.dart';
 
 class TextFieldCustom extends StatelessWidget {
-  Icon? icon;
+  dynamic icon;
   String? hintText;
-  Icon? suffixIcon;
+  dynamic suffixIcon;
   TextEditingController? controller;
+  bool? obscure;
+  Function? changeIsObscure;
+  Function? suffixOnPressed;
+  bool? readOnly;
+  String? value;
 
   TextFieldCustom({
     @required this.icon,
     this.hintText,
     this.suffixIcon,
     this.controller = null,
+    this.obscure,
+    this.changeIsObscure = null,
+    this.suffixOnPressed,
+    this.readOnly,
+    this.value = "",
   });
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,6 +42,8 @@ class TextFieldCustom extends StatelessWidget {
           Expanded(
             child: Center(
               child: TextFormField(
+                readOnly: readOnly ?? false,
+                obscureText: obscure ?? false,
                 controller: controller,
                 onChanged: (val) {},
                 decoration: InputDecoration(
@@ -54,7 +65,12 @@ class TextFieldCustom extends StatelessWidget {
           ),
           suffixIcon != null
               ? GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    if (hintText == "Password") {
+                      changeIsObscure!();
+                    }
+                    suffixOnPressed!();
+                  },
                   child: suffixIcon,
                 )
               : SizedBox(),

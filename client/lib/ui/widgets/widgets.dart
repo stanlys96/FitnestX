@@ -4,3 +4,4 @@ import 'package:fitness_app/provider/providers.dart';
 
 part 'text_field_custom.dart';
 part 'dropdown_field.dart';
+part 'date_time_field.dart';

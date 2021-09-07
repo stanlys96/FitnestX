@@ -7,7 +7,7 @@ class RegisterChangeNotifier with ChangeNotifier {
   final _lastNameController = new TextEditingController();
   final _emailController = new TextEditingController();
   final _passwordController = new TextEditingController();
-  final _dateOfBirthController = new TextEditingController();
+  String dateOfBirth = '';
   final _weightController = new TextEditingController();
   final _heightController = new TextEditingController();
 
@@ -24,7 +24,6 @@ class RegisterChangeNotifier with ChangeNotifier {
   TextEditingController get emailController => _emailController;
   TextEditingController get passwordController => _passwordController;
   String get selectedGender => _selectedGender;
-  TextEditingController get dateOfBirthController => _dateOfBirthController;
   TextEditingController get weightController => _weightController;
   TextEditingController get heightController => _heightController;
 
@@ -59,7 +58,7 @@ class RegisterChangeNotifier with ChangeNotifier {
       var email = prefs.getString("email");
       http.Response jsonResponse = await authServices.completeProfile(
         _selectedGender,
-        _dateOfBirthController.text,
+        dateOfBirth,
         double.parse(_weightController.text),
         double.parse(_heightController.text),
         email!,
