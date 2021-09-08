@@ -5,9 +5,14 @@ const { generateToken } = require('../helpers/jwt');
 class User {
   static async register(user) {
     let { first_name, last_name, email, password } = user;
-    password = hashPassword(password);
-    const newUser = await pool.query("INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURNING *", [first_name, last_name, email, password]);
-    return newUser;
+    const findUser = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
+    if (findUser.rowCount > 0) {
+      return "email_exist";
+    } else {
+      password = hashPassword(password);
+      const newUser = await pool.query("INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURNING *", [first_name, last_name, email, password]);
+      return newUser;
+    }
   } catch(err) {
     console.log(err.message);
   }

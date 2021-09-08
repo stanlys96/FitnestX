@@ -22,12 +22,16 @@ class _LoginPageState extends State<LoginPage> {
           return SingleChildScrollView(
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              padding: const EdgeInsets.all(20),
+              height: MediaQuery.of(context).size.height - 20,
+              padding: const EdgeInsets.only(
+                left: 20,
+                right: 20,
+                top: 20,
+              ),
               child: Column(
                 children: [
                   Container(
-                    height: MediaQuery.of(context).size.height * 0.6,
+                    height: MediaQuery.of(context).size.height * 0.63,
                     child: Form(
                       key: provider.formKey,
                       child: Column(
@@ -50,7 +54,21 @@ class _LoginPageState extends State<LoginPage> {
                             hintText: "Email",
                             controller: provider.emailController,
                           ),
-                          SizedBox(height: 15),
+                          if (provider.emailError != "") ...[
+                            SizedBox(height: 5),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                provider.emailError,
+                                textAlign: TextAlign.start,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 13,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
+                          ],
+                          SizedBox(height: provider.emailError != "" ? 10 : 15),
                           TextFieldCustom(
                             icon: Icon(Icons.lock_outline),
                             hintText: "Password",
@@ -61,6 +79,20 @@ class _LoginPageState extends State<LoginPage> {
                             obscure: isObscure,
                             changeIsObscure: changeObscure,
                           ),
+                          if (provider.passwordError != "") ...[
+                            SizedBox(height: 5),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                provider.passwordError,
+                                textAlign: TextAlign.start,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 13,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
+                          ],
                           SizedBox(height: 10),
                           Container(
                             decoration: BoxDecoration(
@@ -81,103 +113,117 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          provider.handleLogin(context);
-                        },
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            gradient: LinearGradient(
-                                colors: [
-                                  const Color(0xFF9DCEFF),
-                                  const Color(0xFF92A3FD),
-                                ],
-                                begin: const FractionalOffset(0.0, 0.0),
-                                end: const FractionalOffset(1.0, 0.0),
-                                stops: [0.0, 1.0],
-                                tileMode: TileMode.clamp),
-                          ),
-                          child: Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.home,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(width: 6),
-                                Text(
-                                  'Login',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 14,
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            provider.handleLogin(context);
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              gradient: LinearGradient(
+                                  colors: [
+                                    const Color(0xFF9DCEFF),
+                                    const Color(0xFF92A3FD),
+                                  ],
+                                  begin: const FractionalOffset(0.0, 0.0),
+                                  end: const FractionalOffset(1.0, 0.0),
+                                  stops: [0.0, 1.0],
+                                  tileMode: TileMode.clamp),
+                            ),
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.home,
                                     color: Colors.white,
-                                    fontWeight: FontWeight.w700,
                                   ),
-                                ),
-                              ],
+                                  SizedBox(width: 6),
+                                  Text(
+                                    'Login',
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 14,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(height: 15),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Divider(
-                              thickness: 2,
+                        SizedBox(height: 15),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Divider(
+                                thickness: 2,
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            'Or',
-                            style: GoogleFonts.poppins(),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: Divider(
-                              thickness: 2,
+                            SizedBox(
+                              width: 10,
                             ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 15),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset('assets/icons/ic_google.png'),
-                          SizedBox(
-                            width: 30,
-                          ),
-                          Image.asset('assets/icons/ic_facebook.png'),
-                        ],
-                      ),
-                      SizedBox(height: 15),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Don't have an account yet?",
-                            style: GoogleFonts.poppins(),
-                          ),
-                          Text(
-                            ' Register',
-                            style: GoogleFonts.poppins(
-                              color: Color(0xFFC58BF2),
+                            Text(
+                              'Or',
+                              style: GoogleFonts.poppins(),
                             ),
-                          ),
-                        ],
-                      )
-                    ],
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: Divider(
+                                thickness: 2,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 15),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset('assets/icons/ic_google.png'),
+                            SizedBox(
+                              width: 30,
+                            ),
+                            Image.asset('assets/icons/ic_facebook.png'),
+                          ],
+                        ),
+                        SizedBox(height: 15),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Don't have an account yet?",
+                              style: GoogleFonts.poppins(),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pushReplacement<void, void>(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                    builder: (BuildContext context) =>
+                                        RegisterPage(),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                ' Register',
+                                style: GoogleFonts.poppins(
+                                  color: Color(0xFFC58BF2),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ],
               ),

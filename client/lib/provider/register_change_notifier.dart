@@ -3,8 +3,10 @@ part of 'providers.dart';
 class RegisterChangeNotifier with ChangeNotifier {
   int _listTitleIndex = 0;
 
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  GlobalKey<ScaffoldState> _scaffoldKey =
+      GlobalKey<ScaffoldState>(debugLabel: "_registerPageScaffoldKey");
+  GlobalKey<FormState> _formKey =
+      GlobalKey<FormState>(debugLabel: '_registerPageKey');
   final _firstNameController = new TextEditingController();
   final _lastNameController = new TextEditingController();
   final _emailController = new TextEditingController();
@@ -138,11 +140,16 @@ class RegisterChangeNotifier with ChangeNotifier {
           _passwordController.text,
         );
         Data result = new Data.fromJson(jsonDecode(jsonResponse.body));
-        prefs.setString("email", result.email!);
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => CompleteProfile()),
-        );
+        if (result.message == "Success") {
+          prefs.setString("email", result.email!);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => CompleteProfile()),
+          );
+        } else {
+          emailError = result.message!;
+          notifyListeners();
+        }
       }
     } catch (e) {
       print(e);

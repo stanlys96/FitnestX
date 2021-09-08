@@ -35,16 +35,16 @@ class _RegisterPageState extends State<RegisterPage> {
                 key: provider.formKey,
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height - 80,
+                  height: MediaQuery.of(context).size.height - 20,
                   padding: const EdgeInsets.only(
                     top: 20,
                     left: 20,
                     right: 20,
-                    bottom: 20,
                   ),
                   child: Column(
                     children: [
-                      Expanded(
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.63,
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -147,8 +147,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                 ),
                               ),
                             ],
-                            SizedBox(
-                                height: provider.passwordError != "" ? 10 : 15),
                             Row(
                               children: [
                                 Checkbox(value: true, onChanged: (val) {}),
@@ -165,95 +163,109 @@ class _RegisterPageState extends State<RegisterPage> {
                           ],
                         ),
                       ),
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              print('register');
-                              provider.handleRegister(context);
-                            },
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                gradient: const LinearGradient(
-                                    colors: [
-                                      const Color(0xFF9DCEFF),
-                                      const Color(0xFF92A3FD),
-                                    ],
-                                    begin: const FractionalOffset(0.0, 0.0),
-                                    end: const FractionalOffset(1.0, 0.0),
-                                    stops: [0.0, 1.0],
-                                    tileMode: TileMode.clamp),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'Register',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 14,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700,
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.3,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                print('register');
+                                provider.handleRegister(context);
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  gradient: const LinearGradient(
+                                      colors: [
+                                        const Color(0xFF9DCEFF),
+                                        const Color(0xFF92A3FD),
+                                      ],
+                                      begin: const FractionalOffset(0.0, 0.0),
+                                      end: const FractionalOffset(1.0, 0.0),
+                                      stops: [0.0, 1.0],
+                                      tileMode: TileMode.clamp),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Register',
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 14,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w700,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          SizedBox(height: 15),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Divider(
-                                  thickness: 2,
+                            SizedBox(height: 15),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Divider(
+                                    thickness: 2,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                'Or',
-                                style: GoogleFonts.poppins(),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Expanded(
-                                child: Divider(
-                                  thickness: 2,
+                                SizedBox(
+                                  width: 10,
                                 ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 15),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset('assets/icons/ic_google.png'),
-                              SizedBox(
-                                width: 30,
-                              ),
-                              Image.asset('assets/icons/ic_facebook.png'),
-                            ],
-                          ),
-                          SizedBox(height: 15),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Already have an account?',
-                                style: GoogleFonts.poppins(),
-                              ),
-                              Text(
-                                ' Login',
-                                style: GoogleFonts.poppins(
-                                  color: Color(0xFFC58BF2),
+                                Text(
+                                  'Or',
+                                  style: GoogleFonts.poppins(),
                                 ),
-                              ),
-                            ],
-                          )
-                        ],
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: Divider(
+                                    thickness: 2,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 15),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset('assets/icons/ic_google.png'),
+                                SizedBox(
+                                  width: 30,
+                                ),
+                                Image.asset('assets/icons/ic_facebook.png'),
+                              ],
+                            ),
+                            SizedBox(height: 15),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Already have an account?',
+                                  style: GoogleFonts.poppins(),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushReplacement<void, void>(
+                                      context,
+                                      MaterialPageRoute<void>(
+                                        builder: (BuildContext context) =>
+                                            LoginPage(),
+                                      ),
+                                    );
+                                  },
+                                  child: Text(
+                                    ' Login',
+                                    style: GoogleFonts.poppins(
+                                      color: Color(0xFFC58BF2),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     ],
                   ),

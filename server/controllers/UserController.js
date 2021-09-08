@@ -6,7 +6,11 @@ class UserController {
   static async register(req, res) {
     try {
       const newUser = await User.register(req.body);
-      res.json(newUser.rows[0]);
+      if (newUser == "email_exist") {
+        res.json({ message: "Email already registered!" });
+      } else {
+        res.json({ ...newUser.rows[0], message: "Success" });
+      }
     } catch (err) {
       console.log(err);
     }
@@ -38,7 +42,7 @@ class UserController {
       } else {
         res.json({ message: "Email or password is incorrect!" })
       }
-    } catch(err) {
+    } catch (err) {
       console.log(err);
     }
   }

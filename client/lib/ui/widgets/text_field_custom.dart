@@ -48,6 +48,7 @@ class TextFieldCustom extends StatelessWidget {
                 obscureText: obscure ?? false,
                 controller: controller,
                 onChanged: (val) {},
+                style: GoogleFonts.poppins(fontSize: 14),
                 decoration: InputDecoration(
                   prefixIconConstraints: const BoxConstraints(
                     minWidth: 10,

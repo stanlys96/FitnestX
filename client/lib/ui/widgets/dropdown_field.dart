@@ -38,7 +38,7 @@ class DropdownField extends StatelessWidget {
               ),
               iconSize: 24,
               elevation: 16,
-              style: const TextStyle(color: Colors.black),
+              style: GoogleFonts.poppins(fontSize: 14, color: Colors.black),
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.transparent,

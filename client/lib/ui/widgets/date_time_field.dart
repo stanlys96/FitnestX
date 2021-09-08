@@ -25,7 +25,14 @@ class DateTimeField extends StatelessWidget {
             width: 12,
           ),
           Expanded(
-            child: Text(title!),
+            child: Text(
+              title!,
+              style: GoogleFonts.poppins(
+                  fontSize: 14,
+                  color: title == "Select Date of Birth"
+                      ? Color(0xFF636161)
+                      : Colors.black),
+            ),
           ),
           suffixIcon != null
               ? GestureDetector(
