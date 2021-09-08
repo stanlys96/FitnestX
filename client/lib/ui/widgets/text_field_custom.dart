@@ -10,6 +10,7 @@ class TextFieldCustom extends StatelessWidget {
   Function? suffixOnPressed;
   bool? readOnly;
   String? value;
+  bool? inputNumber;
 
   TextFieldCustom({
     @required this.icon,
@@ -21,6 +22,7 @@ class TextFieldCustom extends StatelessWidget {
     this.suffixOnPressed,
     this.readOnly,
     this.value = "",
+    this.inputNumber = false,
   });
   @override
   Widget build(BuildContext context) {
@@ -59,7 +61,8 @@ class TextFieldCustom extends StatelessWidget {
                   hintText: hintText ?? "",
                   hintStyle: GoogleFonts.poppins(fontSize: 14),
                 ),
-                keyboardType: TextInputType.text,
+                keyboardType:
+                    !inputNumber! ? TextInputType.text : TextInputType.number,
               ),
             ),
           ),
