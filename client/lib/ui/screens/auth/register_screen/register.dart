@@ -59,24 +59,70 @@ class _RegisterPageState extends State<RegisterPage> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            const SizedBox(height: 15),
+                            const SizedBox(height: 10),
                             TextFieldCustom(
                               icon: Icon(Icons.person_outline),
                               hintText: "First Name",
                               controller: provider.firstNameController,
                             ),
-                            SizedBox(height: 15),
+                            if (provider.firstNameError != "") ...[
+                              SizedBox(height: 5),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  provider.firstNameError,
+                                  textAlign: TextAlign.start,
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 13,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ),
+                            ],
+                            SizedBox(
+                                height:
+                                    provider.firstNameError != "" ? 10 : 15),
                             TextFieldCustom(
                               icon: Icon(Icons.person_outline),
                               hintText: "Last Name",
                               controller: provider.lastNameController,
                             ),
-                            SizedBox(height: 15),
+                            if (provider.lastNameError != "") ...[
+                              SizedBox(height: 5),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  provider.lastNameError,
+                                  textAlign: TextAlign.start,
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 13,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ),
+                            ],
+                            SizedBox(
+                                height: provider.lastNameError != "" ? 10 : 15),
                             TextFieldCustom(
                                 icon: Icon(Icons.mail_outline),
                                 hintText: "Email",
                                 controller: provider.emailController),
-                            SizedBox(height: 15),
+                            if (provider.emailError != "") ...[
+                              SizedBox(height: 5),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  provider.emailError,
+                                  textAlign: TextAlign.start,
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 13,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ),
+                            ],
+                            SizedBox(
+                                height: provider.emailError != "" ? 10 : 15),
                             TextFieldCustom(
                               icon: Icon(Icons.lock_outline),
                               hintText: "Password",
@@ -87,7 +133,22 @@ class _RegisterPageState extends State<RegisterPage> {
                               obscure: isObscure,
                               changeIsObscure: changeObscure,
                             ),
-                            SizedBox(height: 10),
+                            if (provider.passwordError != "") ...[
+                              SizedBox(height: 5),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  provider.passwordError,
+                                  textAlign: TextAlign.start,
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 13,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ),
+                            ],
+                            SizedBox(
+                                height: provider.passwordError != "" ? 10 : 15),
                             Row(
                               children: [
                                 Checkbox(value: true, onChanged: (val) {}),

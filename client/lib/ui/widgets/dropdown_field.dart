@@ -28,10 +28,9 @@ class DropdownField extends StatelessWidget {
           ),
           Expanded(
             child: DropdownButtonFormField<String>(
-              value: provider.selectedGender,
               isExpanded: true,
               hint: Text(
-                'Choose Gender',
+                provider.genderHint,
               ),
               icon: const Icon(
                 Icons.keyboard_arrow_down_sharp,
@@ -51,7 +50,8 @@ class DropdownField extends StatelessWidget {
                 hintStyle: GoogleFonts.poppins(fontSize: 14),
               ),
               onChanged: (String? value) {
-                provider.setSelectedGender(value!);
+                provider.genderHint = value!;
+                provider.setSelectedGender(value);
               },
               items: data.map<DropdownMenuItem<String>>(
                 (String value) {
