@@ -70,8 +70,10 @@ class LoginChangeNotifier extends ChangeNotifier {
         if (result.message == "Success") {
           final snackBar = SnackBar(content: Text("Successfully logged in!"));
           prefs.setString("emailLoggedIn", result.email!);
+          _emailController.text = "";
+          _passwordController.text = "";
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => WelcomePage()),
           );

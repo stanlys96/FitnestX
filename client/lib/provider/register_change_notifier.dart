@@ -142,7 +142,11 @@ class RegisterChangeNotifier with ChangeNotifier {
         Data result = new Data.fromJson(jsonDecode(jsonResponse.body));
         if (result.message == "Success") {
           prefs.setString("email", result.email!);
-          Navigator.push(
+          _emailController.text = "";
+          _passwordController.text = "";
+          _firstNameController.text = "";
+          _lastNameController.text = "";
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => CompleteProfile()),
           );
@@ -225,6 +229,10 @@ class RegisterChangeNotifier with ChangeNotifier {
         );
         CompleteProfileData result =
             new CompleteProfileData.fromJson(jsonDecode(jsonResponse.body));
+        _weightController.text = "";
+        _heightController.text = "";
+        dateOfBirth = "Select Date of Birth";
+        genderHint = "Choose Gender";
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => GoalsPage()),
@@ -260,6 +268,7 @@ class RegisterChangeNotifier with ChangeNotifier {
       email!,
       _selectedTitle,
     );
+    _listTitleIndex = 0;
     GoalsData result = new GoalsData.fromJson(jsonDecode(jsonResponse.body));
     Navigator.push(
       context,
