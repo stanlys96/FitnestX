@@ -69,7 +69,9 @@ class TextFieldCustom extends StatelessWidget {
                     if (hintText == "Password") {
                       changeIsObscure!();
                     }
-                    suffixOnPressed!();
+                    if (suffixOnPressed != null) {
+                      suffixOnPressed!();
+                    }
                   },
                   child: suffixIcon,
                 )
