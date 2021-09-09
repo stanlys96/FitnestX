@@ -16,6 +16,8 @@ class RegisterChangeNotifier with ChangeNotifier {
   final _weightController = new TextEditingController();
   final _heightController = new TextEditingController();
 
+  ResultState? _state;
+
   String firstNameError = "";
   String lastNameError = "";
   String emailError = "";
@@ -59,6 +61,7 @@ class RegisterChangeNotifier with ChangeNotifier {
   TextEditingController get heightController => _heightController;
   CarouselController get buttonCarouselController => _buttonCarouselController;
   String get selectedTitle => _selectedTitle;
+  ResultState? get state => _state;
 
   void setSelectedGender(String value) {
     _selectedGender = value;
@@ -133,6 +136,8 @@ class RegisterChangeNotifier with ChangeNotifier {
       }
 
       if (canRegister) {
+        _state = ResultState.Loading;
+        notifyListeners();
         http.Response jsonResponse = await authServices.register(
           _firstNameController.text,
           _lastNameController.text,
@@ -141,6 +146,8 @@ class RegisterChangeNotifier with ChangeNotifier {
         );
         Data result = new Data.fromJson(jsonDecode(jsonResponse.body));
         if (result.message == "Success") {
+          _state = ResultState.HasData;
+          notifyListeners();
           prefs.setString("email", result.email!);
           _emailController.text = "";
           _passwordController.text = "";
@@ -151,11 +158,14 @@ class RegisterChangeNotifier with ChangeNotifier {
             MaterialPageRoute(builder: (context) => CompleteProfile()),
           );
         } else {
+          _state = ResultState.Error;
           emailError = result.message!;
           notifyListeners();
         }
       }
     } catch (e) {
+      _state = ResultState.Error;
+      notifyListeners();
       print(e);
     }
   }
@@ -220,6 +230,8 @@ class RegisterChangeNotifier with ChangeNotifier {
       }
 
       if (canContinue) {
+        _state = ResultState.Loading;
+        notifyListeners();
         http.Response jsonResponse = await authServices.completeProfile(
           _selectedGender,
           dateOfBirth,
@@ -227,18 +239,22 @@ class RegisterChangeNotifier with ChangeNotifier {
           double.parse(_heightController.text),
           email!,
         );
+        _state = ResultState.HasData;
+        notifyListeners();
         CompleteProfileData result =
             new CompleteProfileData.fromJson(jsonDecode(jsonResponse.body));
         _weightController.text = "";
         _heightController.text = "";
         dateOfBirth = "Select Date of Birth";
         genderHint = "Choose Gender";
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => GoalsPage()),
         );
       }
     } catch (e) {
+      _state = ResultState.Error;
+      notifyListeners();
       print(e);
     }
   }
@@ -262,18 +278,41 @@ class RegisterChangeNotifier with ChangeNotifier {
   }
 
   void addGoals(BuildContext context) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var email = prefs.getString('email');
-    http.Response jsonResponse = await authServices.addGoals(
-      email!,
-      _selectedTitle,
-    );
-    _listTitleIndex = 0;
-    GoalsData result = new GoalsData.fromJson(jsonDecode(jsonResponse.body));
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => LoginPage()),
-    );
+    try {
+      _state = ResultState.Loading;
+      notifyListeners();
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var email = prefs.getString('email');
+      http.Response jsonResponse = await authServices.addGoals(
+        email!,
+        _selectedTitle,
+      );
+      _state = ResultState.HasData;
+      notifyListeners();
+      _listTitleIndex = 0;
+      GoalsData result = new GoalsData.fromJson(jsonDecode(jsonResponse.body));
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginPage()),
+      );
+    } catch (err) {
+      _state = ResultState.Error;
+      notifyListeners();
+      print(err);
+    }
+  }
+
+  void refresh(BuildContext context) {
+    _firstNameController.text = "";
+    _lastNameController.text = "";
+    _emailController.text = "";
+    _passwordController.text = "";
+
+    firstNameError = "";
+    lastNameError = "";
+    emailError = "";
+    passwordError = "";
+    notifyListeners();
   }
 
   void handleCompleteProfile(BuildContext context) async {}

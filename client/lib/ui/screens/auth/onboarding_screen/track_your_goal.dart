@@ -52,7 +52,7 @@ class TrackYourGoal extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () {
                       if (provider.index == provider.listTitles.length - 1) {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) => RegisterPage()),

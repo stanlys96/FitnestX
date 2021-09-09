@@ -7,6 +7,7 @@ class LoginChangeNotifier extends ChangeNotifier {
       GlobalKey<FormState>(debugLabel: "_loginPageKey");
   final _emailController = new TextEditingController();
   final _passwordController = new TextEditingController();
+  ResultState? _state;
 
   String emailError = "";
   String passwordError = "";
@@ -17,6 +18,7 @@ class LoginChangeNotifier extends ChangeNotifier {
   get formKey => _formKey;
   TextEditingController get emailController => _emailController;
   TextEditingController get passwordController => _passwordController;
+  ResultState? get state => _state;
 
   void handleLogin(BuildContext context) async {
     bool emailValidator = false;
@@ -61,6 +63,8 @@ class LoginChangeNotifier extends ChangeNotifier {
       }
 
       if (canLogin) {
+        _state = ResultState.Loading;
+        notifyListeners();
         http.Response jsonResponse = await authServices.login(
           _emailController.text,
           _passwordController.text,
@@ -68,6 +72,8 @@ class LoginChangeNotifier extends ChangeNotifier {
         LoginData result =
             new LoginData.fromJson(jsonDecode(jsonResponse.body));
         if (result.message == "Success") {
+          _state = ResultState.HasData;
+          notifyListeners();
           final snackBar = SnackBar(content: Text("Successfully logged in!"));
           prefs.setString("emailLoggedIn", result.email!);
           _emailController.text = "";
@@ -78,12 +84,23 @@ class LoginChangeNotifier extends ChangeNotifier {
             MaterialPageRoute(builder: (context) => WelcomePage()),
           );
         } else {
+          _state = ResultState.Error;
           passwordError = result.message!;
           notifyListeners();
         }
       }
     } catch (e) {
+      _state = ResultState.Error;
       print(e);
     }
+  }
+
+  void refresh(BuildContext context) {
+    _emailController.text = "";
+    _passwordController.text = "";
+
+    emailError = "";
+    passwordError = "";
+    notifyListeners();
   }
 }

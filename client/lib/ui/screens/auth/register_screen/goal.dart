@@ -133,15 +133,18 @@ class GoalsPage extends StatelessWidget {
                             tileMode: TileMode.clamp),
                       ),
                       child: Center(
-                        child: Text(
-                          'Confirm',
-                          style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
+                          child: provider.state != ResultState.Loading
+                              ? Text(
+                                  'Confirm',
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                )
+                              : CircularProgressIndicator(
+                                  backgroundColor: Colors.white,
+                                )),
                     ),
                   ),
                 ],

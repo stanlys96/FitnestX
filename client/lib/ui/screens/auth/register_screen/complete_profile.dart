@@ -255,39 +255,44 @@ class _CompleteProfileState extends State<CompleteProfile>
                             provider.completeProfile(context);
                           },
                           child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              gradient: LinearGradient(
-                                  colors: [
-                                    const Color(0xFF9DCEFF),
-                                    const Color(0xFF92A3FD),
+                              height: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                gradient: LinearGradient(
+                                    colors: [
+                                      const Color(0xFF9DCEFF),
+                                      const Color(0xFF92A3FD),
+                                    ],
+                                    begin: const FractionalOffset(0.0, 0.0),
+                                    end: const FractionalOffset(1.0, 0.0),
+                                    stops: [0.0, 1.0],
+                                    tileMode: TileMode.clamp),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  if (provider.state !=
+                                      ResultState.Loading) ...[
+                                    Text(
+                                      'Next ',
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 14,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                    Icon(
+                                      Icons.arrow_forward_ios_outlined,
+                                      color: Colors.white,
+                                      size: 15,
+                                    )
+                                  ] else ...[
+                                    CircularProgressIndicator(
+                                      backgroundColor: Colors.white,
+                                    )
                                   ],
-                                  begin: const FractionalOffset(0.0, 0.0),
-                                  end: const FractionalOffset(1.0, 0.0),
-                                  stops: [0.0, 1.0],
-                                  tileMode: TileMode.clamp),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Next ',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 14,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                Icon(
-                                  Icons.arrow_forward_ios_outlined,
-                                  color: Colors.white,
-                                  size: 15,
-                                )
-                              ],
-                            ),
-                          ),
+                                ],
+                              )),
                         ),
                       ],
                     ),

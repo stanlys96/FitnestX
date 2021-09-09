@@ -8,6 +8,7 @@ import 'package:fitness_app/ui/screens/auth/register_screen/main.dart';
 import 'package:fitness_app/ui/screens/auth/login_screen/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:carousel_slider/carousel_controller.dart';
+import 'package:fitness_app/utility/result_state.dart';
 
 part 'getting_started_change_notifier.dart';
 part 'register_change_notifier.dart';

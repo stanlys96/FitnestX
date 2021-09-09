@@ -125,6 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: Container(
                             width: MediaQuery.of(context).size.width,
                             height: 50,
+                            padding: EdgeInsets.symmetric(vertical: 10),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(50),
                               gradient: LinearGradient(
@@ -138,24 +139,29 @@ class _LoginPageState extends State<LoginPage> {
                                   tileMode: TileMode.clamp),
                             ),
                             child: Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.home,
-                                    color: Colors.white,
-                                  ),
-                                  SizedBox(width: 6),
-                                  Text(
-                                    'Login',
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 14,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700,
+                              child: provider.state != ResultState.Loading
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.home,
+                                          color: Colors.white,
+                                        ),
+                                        SizedBox(width: 6),
+                                        Text(
+                                          'Login',
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 14,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : CircularProgressIndicator(
+                                      backgroundColor: Colors.white,
                                     ),
-                                  ),
-                                ],
-                              ),
                             ),
                           ),
                         ),
@@ -205,6 +211,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             GestureDetector(
                               onTap: () {
+                                provider.refresh(context);
                                 Navigator.pushReplacement<void, void>(
                                   context,
                                   MaterialPageRoute<void>(

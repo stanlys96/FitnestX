@@ -177,6 +177,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               child: Container(
                                 width: MediaQuery.of(context).size.width,
                                 height: 50,
+                                padding: EdgeInsets.symmetric(vertical: 10),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(50),
                                   gradient: const LinearGradient(
@@ -190,14 +191,18 @@ class _RegisterPageState extends State<RegisterPage> {
                                       tileMode: TileMode.clamp),
                                 ),
                                 child: Center(
-                                  child: Text(
-                                    'Register',
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 14,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
+                                  child: provider.state != ResultState.Loading
+                                      ? Text(
+                                          'Register',
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 14,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        )
+                                      : CircularProgressIndicator(
+                                          backgroundColor: Colors.white,
+                                        ),
                                 ),
                               ),
                             ),
@@ -247,6 +252,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
+                                    provider.refresh(context);
                                     Navigator.pushReplacement<void, void>(
                                       context,
                                       MaterialPageRoute<void>(
