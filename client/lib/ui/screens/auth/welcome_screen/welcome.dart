@@ -1,6 +1,8 @@
 part of 'main.dart';
 
 class WelcomePage extends StatelessWidget {
+  String? firstName;
+  WelcomePage({this.firstName});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +24,7 @@ class WelcomePage extends StatelessWidget {
                     Image.asset('assets/images/welcome.png'),
                     SizedBox(height: 15),
                     Text(
-                      "Welcome, Stefani",
+                      "Welcome, $firstName",
                       style: GoogleFonts.poppins(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,

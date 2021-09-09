@@ -144,9 +144,10 @@ class _LoginPageState extends State<LoginPage> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Icon(
-                                          Icons.home,
-                                          color: Colors.white,
+                                        Image.asset(
+                                          'assets/icons/ic_login.png',
+                                          height: 20,
+                                          width: 20,
                                         ),
                                         SizedBox(width: 6),
                                         Text(

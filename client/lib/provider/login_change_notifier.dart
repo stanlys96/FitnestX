@@ -81,7 +81,10 @@ class LoginChangeNotifier extends ChangeNotifier {
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => WelcomePage()),
+            MaterialPageRoute(
+                builder: (context) => WelcomePage(
+                      firstName: result.firstName,
+                    )),
           );
         } else {
           _state = ResultState.Error;

@@ -112,7 +112,11 @@ class _CompleteProfileState extends State<CompleteProfile>
                         ],
                         SizedBox(height: provider.genderError != "" ? 10 : 15),
                         DateTimeField(
-                          icon: Icon(Icons.calendar_today, size: 20),
+                          icon: Image.asset(
+                            'assets/icons/ic_calendar.png',
+                            height: 20,
+                            width: 20,
+                          ),
                           title: provider.dateOfBirth,
                           suffixIcon:
                               Icon(Icons.calendar_today_outlined, size: 20),

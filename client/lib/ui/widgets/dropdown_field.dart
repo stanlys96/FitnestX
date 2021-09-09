@@ -22,9 +22,10 @@ class DropdownField extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(
-            Icons.person_outline,
-            size: 20,
+          Image.asset(
+            'assets/icons/ic_gender.png',
+            height: 20,
+            width: 20,
           ),
           Expanded(
             child: DropdownButtonFormField<String>(
