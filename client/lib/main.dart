@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fitness_app/ui/screens/auth/onboarding_screen/main.dart';
 import 'package:fitness_app/ui/screens/auth/register_screen/main.dart';
+import 'package:fitness_app/ui/screens/main/dashboard_screen/main.dart';
 import 'package:provider/provider.dart';
 import 'provider/providers.dart';
 
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => OnboardingScreen(),
         '/register': (context) => RegisterPage(),
+        '/dashboard': (context) => DashboardPage(),
       },
     );
   }
